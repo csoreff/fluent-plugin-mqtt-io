@@ -14,6 +14,8 @@ module Fluent::Plugin
       base.config_param :client_id, :string, default: nil
       base.desc 'Specify keep alive interval.'
       base.config_param :keep_alive, :integer, default: 15
+      base.desc 'Specify clean session value.'
+      base.config_param :clean_session, :bool, default: true
       base.desc 'Specify initial connection retry interval.'
       base.config_param :initial_interval, :integer, default: 1
       base.desc 'Specify increasing ratio of connection retry interval.'
@@ -54,7 +56,8 @@ module Fluent::Plugin
         host: @host,
         port: @port,
         client_id: @client_id,
-        keep_alive: @keep_alive
+        keep_alive: @keep_alive,
+        clean_session: @clean_session
       }
       opts[:username] = @security.username if @security.to_h.has_key?(:username)
       opts[:password] = @security.password if @security.to_h.has_key?(:password)
